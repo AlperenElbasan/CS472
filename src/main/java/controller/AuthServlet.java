@@ -10,20 +10,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.Arrays;
 import java.util.Optional;
 import java.util.UUID;
 
-@WebServlet("/login")
-public class LoginServlet extends HttpServlet {
+@WebServlet("/auth")
+public class AuthServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String name = req.getParameter("name");
         String password = req.getParameter("password");
         Optional<UserDao> optionalUserDao = Users.getUsers().stream().filter(u -> u.getName().equals(name)).findAny();
-
-        String uuid;
         UserDao user;
 
         if (optionalUserDao.isPresent()) {
@@ -44,6 +41,16 @@ public class LoginServlet extends HttpServlet {
         cookie.setMaxAge(60 * 60 * 24 * 30);
         resp.addCookie(cookie);
 
-        resp.sendRedirect(req.getContextPath() + "/profile");
+        resp.sendRedirect(req.getContextPath() + "/user/profile");
+    }
+
+    @Override
+    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        Optional<Cookie> cookieOptional = Arrays.stream(req.getCookies()).filter(c -> c.getName().equals("Auth")).findFirst();
+
+        if (cookieOptional.isPresent()) {
+            Cookie cookie = cookieOptional.get();
+            cookie.setMaxAge(0); // delete the cookie
+        }
     }
 }

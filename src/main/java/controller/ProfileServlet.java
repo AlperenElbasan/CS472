@@ -14,7 +14,7 @@ import java.io.PrintWriter;
 import java.util.Arrays;
 import java.util.Optional;
 
-@WebServlet("/profile")
+@WebServlet("/user/profile")
 public class ProfileServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -32,10 +32,18 @@ public class ProfileServlet extends HttpServlet {
                 .stream()
                 .filter(u -> u.getUuid().equals(cookie.get().getValue()))
                 .findAny();
+
+        respWriter.println("<html><head><title>User Profile</title></head><body>");
+
+        respWriter.println("<p>");
         respWriter.println(
                 user.isPresent()
                         ? user.get().toString()
                         : "Wrong cookie!"
         );
+        respWriter.println("</p>");
+        respWriter.println("<form action='/wap/logout' method='post'><input type='submit' value='Logout'></form>");
+
+        respWriter.println("</body></html>");
     }
 }
