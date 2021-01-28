@@ -28,20 +28,20 @@ public class ProfileServlet extends HttpServlet {
             return;
         }
 
-        Optional<UserDao> user = Users.getUsers()
+        Optional<UserDao> user = Users.list()
                 .stream()
                 .filter(u -> u.getUuid().equals(cookie.get().getValue()))
                 .findAny();
 
         respWriter.println("<html><head><title>User Profile</title></head><body>");
 
-        respWriter.println("<p>");
+        respWriter.println("<h4>");
         respWriter.println(
                 user.isPresent()
                         ? user.get().toString()
                         : "Wrong cookie!"
         );
-        respWriter.println("</p>");
+        respWriter.println("</h4>");
         respWriter.println("<form action='/wap/logout' method='post'><input type='submit' value='Logout'></form>");
 
         respWriter.println("</body></html>");

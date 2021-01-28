@@ -1,6 +1,6 @@
 package filter;
 
-import service.UserService;
+import storage.Users;
 
 import javax.servlet.*;
 import javax.servlet.http.Cookie;
@@ -21,11 +21,9 @@ public class AuthFilter implements Filter {
 
         Optional<Cookie> cookie = Arrays.stream(httpServletRequest.getCookies()).filter(c -> c.getName().equals("Auth")).findFirst();
 
-        if (cookie.isPresent()) {
-            boolean uuidValid = UserService.getInstance().isCookieAuthenticated(cookie.get().getValue());
-            if (uuidValid)
+        if (cookie.isPresent())
+            if (Users.exists(cookie.get().getValue()))
                 chain.doFilter(request, response);
-        }
     }
 
     @Override

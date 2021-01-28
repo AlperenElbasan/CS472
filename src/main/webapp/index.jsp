@@ -23,7 +23,12 @@
         Password:
         <input type="password" name="password">
     </label>
+    <label>
+        Remember Me
+        <input type="checkbox" name="rememberMe">
+    </label>
     <input type="submit">
 </form>
+<p style="color: red">${msg}</p>
 </body>
 </html>

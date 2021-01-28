@@ -1,13 +1,19 @@
 package dao;
 
+import java.util.UUID;
+
 public class UserDao {
     private final String uuid;
-    private String name;
+    private String username;
     private String password;
 
-    public UserDao(String uuid, String name, String password) {
-        this.uuid = uuid;
-        this.name = name;
+    public UserDao() {
+        this.uuid = UUID.randomUUID().toString();
+    }
+
+    public UserDao(String name, String password) {
+        this();
+        this.username = name;
         this.password = password;
     }
 
@@ -15,12 +21,12 @@ public class UserDao {
         return uuid;
     }
 
-    public String getName() {
-        return name;
+    public String getUsername() {
+        return username;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPassword() {
@@ -33,9 +39,8 @@ public class UserDao {
 
     @Override
     public String toString() {
-        return "User is {" +
-                "uuid='" + uuid + '\'' +
-                ", name='" + name + '\'' +
-                '}';
+        return "User has " +
+                "uuid " + uuid +
+                "\nand username is " + username;
     }
 }

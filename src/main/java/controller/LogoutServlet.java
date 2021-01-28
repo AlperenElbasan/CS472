@@ -7,19 +7,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.Optional;
 
 @WebServlet("/logout")
 public class LogoutServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Optional<Cookie> cookieOptional = Arrays.stream(req.getCookies()).filter(c -> c.getName().equals("Auth")).findFirst();
-
-        if (cookieOptional.isPresent()) {
-            Cookie cookie = cookieOptional.get();
-            cookie.setMaxAge(0); // delete the cookie
-        }
+        Cookie cookie = new Cookie("Auth",null);
+        cookie.setMaxAge(0);
+        resp.addCookie(cookie);
 
         resp.sendRedirect("/wap");
     }
