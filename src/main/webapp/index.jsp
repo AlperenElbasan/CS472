@@ -7,11 +7,23 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
-  <head>
+<head>
     <title>Main Page</title>
-  </head>
-  <body>
-    <h1>Hello World!</h1>
-    <a href="${pageContext.request.contextPath}/support">Support link</a>
-  </body>
+</head>
+<body>
+<h2>Assignment 10</h2>
+<a href="${pageContext.request.contextPath}/support">Support link</a>
+<h2>Assignment 11</h2>
+<form method="post" action="${pageContext.request.contextPath}/login">
+    <label>
+        Name:
+        <input type="text" name="name">
+    </label>
+    <label>
+        Password:
+        <input type="password" name="password">
+    </label>
+    <input type="submit">
+</form>
+</body>
 </html>
