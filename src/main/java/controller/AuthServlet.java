@@ -1,14 +1,14 @@
 package controller;
 
-import dao.UserDao;
+import model.Product;
+import model.User;
+import storage.Products;
 import storage.Users;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.Optional;
 
 @WebServlet("/auth")
 public class AuthServlet extends HttpServlet {
@@ -25,7 +25,7 @@ public class AuthServlet extends HttpServlet {
             return;
         }
 
-        UserDao user = new UserDao(name, password);
+        User user = new User(name, password);
         Users.add(user);
 
         Cookie cookie = new Cookie("Auth", user.getUuid());
@@ -35,6 +35,14 @@ public class AuthServlet extends HttpServlet {
 
         resp.addCookie(cookie);
 
-        resp.sendRedirect(req.getContextPath() + "/user/profile");
+
+        HttpSession session = req.getSession();
+        session.setAttribute("me", user);
+
+        for (int i = 0; i < 10; i++) {
+            Products.addProduct(new Product("Product" + i, i * 10));
+        }
+
+        resp.sendRedirect(req.getContextPath() + "/user/product");
     }
 }

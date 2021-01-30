@@ -1,6 +1,6 @@
 package storage;
 
-import dao.UserDao;
+import model.User;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -8,17 +8,17 @@ import java.util.List;
 import java.util.Map;
 
 public class Users {
-    private static final Map<String, UserDao> users = new HashMap<>();
+    private static final Map<String, User> users = new HashMap<>();
 
-    public static List<UserDao> list() {
+    public static List<User> list() {
         return new ArrayList<>(users.values());
     }
 
-    public static void add(UserDao user) {
+    public static void add(User user) {
         users.put(user.getUuid(), user);
     }
 
-    public static UserDao get(String uuid) { return users.get(uuid); }
+    public static User get(String uuid) { return users.get(uuid); }
 
     public static boolean exists(String uuid) { return users.containsKey(uuid); }
 }

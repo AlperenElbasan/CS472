@@ -1,6 +1,6 @@
 package controller;
 
-import dao.UserDao;
+import model.User;
 import storage.Users;
 
 import javax.servlet.ServletException;
@@ -28,7 +28,7 @@ public class ProfileServlet extends HttpServlet {
             return;
         }
 
-        Optional<UserDao> user = Users.list()
+        Optional<User> user = Users.list()
                 .stream()
                 .filter(u -> u.getUuid().equals(cookie.get().getValue()))
                 .findAny();

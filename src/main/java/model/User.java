@@ -1,17 +1,19 @@
-package dao;
+package model;
 
 import java.util.UUID;
 
-public class UserDao {
+public class User {
+    private final ShoppingCart shoppingCart;
     private final String uuid;
     private String username;
     private String password;
 
-    public UserDao() {
+    public User() {
         this.uuid = UUID.randomUUID().toString();
+        this.shoppingCart = new ShoppingCart();
     }
 
-    public UserDao(String name, String password) {
+    public User(String name, String password) {
         this();
         this.username = name;
         this.password = password;
@@ -35,6 +37,10 @@ public class UserDao {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public ShoppingCart getShoppingCart() {
+        return shoppingCart;
     }
 
     @Override

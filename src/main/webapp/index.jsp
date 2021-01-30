@@ -11,9 +11,6 @@
     <title>Main Page</title>
 </head>
 <body>
-<h2>Assignment 10</h2>
-<a href="${pageContext.request.contextPath}/support">Support link</a>
-<h2>Assignment 11</h2>
 <form method="post" action="${pageContext.request.contextPath}/auth">
     <label>
         Name:
